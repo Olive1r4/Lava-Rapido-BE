@@ -20,14 +20,24 @@ public class Agendamento {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "tipo_veiculo_id") // Chave estrangeira para
+    @JoinColumn(name = "usuario_id") // Chave estrangeira para
+    private Usuario usuario; // Usuário que fez o agendamento
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_veiculo_id")// Chave estrangeira para
     private TipoVeiculo tipoVeiculo; // Ex.: Carro, Moto
+
     private String modelo;      // Modelo do veículo
     private String placa;       // Placa do veículo
-    private String tipoServico; // Tipo de serviço (Lavagem, Polimento)
-    private Double valor;       // Valor do serviço
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_servico_id")
+    private TipoServico tipoServico; // Tipo de serviço (Lavagem, Polimento)
+
     private LocalDate dataAgendada; // Data escolhida pelo cliente
 
+    public Agendamento() {
+    }
     // Getters e Setters para cada campo (necessário para JPA)
     public Long getId() {
         return id;
@@ -35,6 +45,14 @@ public class Agendamento {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public TipoVeiculo getTipoVeiculo() {
@@ -61,20 +79,12 @@ public class Agendamento {
         this.placa = placa;
     }
 
-    public String getTipoServico() {
+    public TipoServico getTipoServico() {
         return tipoServico;
     }
 
-    public void setTipoServico(String tipoServico) {
+    public void setTipoServico(TipoServico tipoServico) {
         this.tipoServico = tipoServico;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
     }
 
     public LocalDate getDataAgendada() {

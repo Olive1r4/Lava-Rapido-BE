@@ -32,5 +32,4 @@ public class TipoVeiculoService {
     public void excluir(Long id) {
         repository.deleteById(id);
     }
-
 }

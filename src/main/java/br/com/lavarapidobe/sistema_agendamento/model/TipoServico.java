@@ -1,25 +1,22 @@
 package br.com.lavarapidobe.sistema_agendamento.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-
-import java.math.BigDecimal;
-
+import org.springframework.web.bind.annotation.RestController;
 @Entity
-@Table(name = "tipo_veiculo")
-public class TipoVeiculo {
+@Table(name = "tipo_servico")
+public class TipoServico {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // Identificador único do tipo de serviço
 
-    private String nome; // Ex.: Carro, Moto
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
-    private Double preco; // Preço do serviço para esse tipo de veículo
+    private String nome; // Nome do tipo de serviço (Ex.: Lavagem Simples, Lavagem Completa)
+    private Double preco; // Preço do serviço
 
-    public TipoVeiculo() {
+    public TipoServico() {
     }
-
     // Getters e Setters
+
     public Long getId() {
         return id;
     }

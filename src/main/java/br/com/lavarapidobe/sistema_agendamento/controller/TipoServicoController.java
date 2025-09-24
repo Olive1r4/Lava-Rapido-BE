@@ -1,34 +1,34 @@
 package br.com.lavarapidobe.sistema_agendamento.controller;
 
-import br.com.lavarapidobe.sistema_agendamento.model.TipoVeiculo;
-import br.com.lavarapidobe.sistema_agendamento.service.TipoVeiculoService;
+import br.com.lavarapidobe.sistema_agendamento.model.TipoServico;
+import br.com.lavarapidobe.sistema_agendamento.service.TipoServicoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/tipos-veiculos")
-public class TipoVeiculoController {
+@RequestMapping("/tipos-servicos")
+public class TipoServicoController {
 
-    private final TipoVeiculoService service;
+    public final TipoServicoService service;
 
-    public TipoVeiculoController(TipoVeiculoService service) {
+    public TipoServicoController(TipoServicoService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<TipoVeiculo> criar(@RequestBody TipoVeiculo tipoVeiculo) {
-        return ResponseEntity.status(201).body(service.salvar(tipoVeiculo));
+    public ResponseEntity<TipoServico> criar(@RequestBody TipoServico tipoServico) {
+        return ResponseEntity.status(201).body(service.salvar(tipoServico));
     }
 
     @GetMapping
-    public ResponseEntity<List<TipoVeiculo>> listar() {
+    public ResponseEntity<List<TipoServico>> listar() {
         return ResponseEntity.ok(service.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoVeiculo> buscar(@PathVariable Long id) {
+    public ResponseEntity<TipoServico> buscar(@PathVariable Long id) {
         return service.buscarPorId(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
