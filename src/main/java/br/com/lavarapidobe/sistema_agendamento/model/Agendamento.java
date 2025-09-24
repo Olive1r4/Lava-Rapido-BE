@@ -1,7 +1,6 @@
 package br.com.lavarapidobe.sistema_agendamento.model;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.time.LocalDate;
 
@@ -20,7 +19,9 @@ public class Agendamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID auto-increment
     private Long id;
 
-    private String tipoVeiculo; // Ex.: Carro, Moto
+    @ManyToOne
+    @JoinColumn(name = "tipo_veiculo_id") // Chave estrangeira para
+    private TipoVeiculo tipoVeiculo; // Ex.: Carro, Moto
     private String modelo;      // Modelo do veículo
     private String placa;       // Placa do veículo
     private String tipoServico; // Tipo de serviço (Lavagem, Polimento)
@@ -36,11 +37,11 @@ public class Agendamento {
         this.id = id;
     }
 
-    public String getTipoVeiculo() {
+    public TipoVeiculo getTipoVeiculo() {
         return tipoVeiculo;
     }
 
-    public void setTipoVeiculo(String tipoVeiculo) {
+    public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
         this.tipoVeiculo = tipoVeiculo;
     }
 

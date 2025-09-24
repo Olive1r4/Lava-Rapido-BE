@@ -9,7 +9,7 @@ import java.util.Optional;
 
 // Camada de serviço: regras de negócio
 @Service
-public class AgendamentoService {
+public class  AgendamentoService {
 
     // Esse atributo vai ser usado dentro da classe para chamar os métodos do repositório (que acessa o banco de dados)
     private final AgendamentoRepository repository;
