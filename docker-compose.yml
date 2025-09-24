@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    build: . # Constrói a imagem usando o Dockerfile
+    ports:
+      - "8080:8080" # Mapeia porta local 8080 -> container 8080
+    depends_on:
+      - db # Garante que o banco suba antes da aplicação
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/lavarapido
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+
+  db:
+    image: postgres:15 # Usa imagem oficial do PostgreSQL
+    container_name: postgres_lavarapido
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: lavarapido
+    ports:
+      - "5432:5432" # Banco disponível na porta 5432
