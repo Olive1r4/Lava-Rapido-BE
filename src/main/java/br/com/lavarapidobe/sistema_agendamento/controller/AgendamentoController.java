@@ -98,8 +98,9 @@ public class AgendamentoController {
                 ).stream()
                 .map(mapper::toResponseDTO)
                 .collect(Collectors.toList());
-    }
 
+        return ResponseEntity.ok(agendamentosDTO);
+    }
 
     // Buscar agendamento por ID com dados completos
     // @GetMapping("/{id}") → URL com parâmetro de caminho (ex: /agendamentos/5).
