@@ -38,7 +38,7 @@ public class  AgendamentoService {
         return repository.findAll();
     }
 
-    // Metodo com filtros (mantenha se necessário)
+    // Metodo com filtros usando lógica de negócio no service
     public List<Agendamento> listarComFiltros(
             String nomeUsuario,
             String telefoneUsuario,
@@ -46,8 +46,50 @@ public class  AgendamentoService {
             LocalDate dataInicio,
             LocalDate dataFim
     ) {
-        // Implementar lógica de filtros aqui
-        return repository.findAll();
+        // Se nenhum filtro foi fornecido, retorna todos
+        if (nomeUsuario == null && telefoneUsuario == null &&
+            dataAgendada == null && dataInicio == null && dataFim == null) {
+            return repository.findAll();
+        }
+
+        // Aplica filtros usando métodos do repository que já funcionam
+        List<Agendamento> resultado = repository.findAll();
+
+        // Filtra por nome do usuário se fornecido
+        if (nomeUsuario != null && !nomeUsuario.trim().isEmpty()) {
+            resultado = resultado.stream()
+                .filter(a -> a.getUsuario().getNome().toLowerCase().contains(nomeUsuario.toLowerCase()))
+                .toList();
+        }
+
+        // Filtra por telefone se fornecido
+        if (telefoneUsuario != null && !telefoneUsuario.trim().isEmpty()) {
+            resultado = resultado.stream()
+                .filter(a -> a.getUsuario().getTelefone().contains(telefoneUsuario))
+                .toList();
+        }
+
+        // Filtra por data específica se fornecida
+        if (dataAgendada != null) {
+            resultado = resultado.stream()
+                .filter(a -> a.getDataAgendada().equals(dataAgendada))
+                .toList();
+        }
+
+        // Filtra por período se fornecido
+        if (dataInicio != null) {
+            resultado = resultado.stream()
+                .filter(a -> !a.getDataAgendada().isBefore(dataInicio))
+                .toList();
+        }
+
+        if (dataFim != null) {
+            resultado = resultado.stream()
+                .filter(a -> !a.getDataAgendada().isAfter(dataFim))
+                .toList();
+        }
+
+        return resultado;
     }
 
     // Busca por ID

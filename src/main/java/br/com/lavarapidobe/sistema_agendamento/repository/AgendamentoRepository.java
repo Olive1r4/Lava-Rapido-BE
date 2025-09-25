@@ -3,6 +3,7 @@ package br.com.lavarapidobe.sistema_agendamento.repository;
 import br.com.lavarapidobe.sistema_agendamento.model.Agendamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.time.LocalDate;
 import java.util.List;
 
 // Interface para acesso aos dados, Spring Data JPA cria métodos prontos

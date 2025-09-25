@@ -1,11 +1,11 @@
 # Etapa 1: Usamos uma imagem com Maven + Java para compilar o projeto
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
+FROM maven:3.9.6-openjdk-17 AS builder
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Criamos uma imagem final mais leve apenas com Java
-FROM eclipse-temurin:17-jdk
+FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
