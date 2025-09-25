@@ -14,7 +14,9 @@ import br.com.lavarapidobe.sistema_agendamento.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,12 +86,20 @@ public class AgendamentoController {
     // @GetMapping → Associa ao verbo HTTP GET.
     // Retorna a lista de todos os agendamentos como JSON com dados enriquecidos.
     @GetMapping
-    public ResponseEntity<List<AgendamentoResponseDTO>> listar() {
-        List<AgendamentoResponseDTO> agendamentosDTO = service.listar().stream()
-            .map(mapper::toResponseDTO)
-            .collect(Collectors.toList());
-        return ResponseEntity.ok(agendamentosDTO);
+    public ResponseEntity<List<AgendamentoResponseDTO>> listar(
+            @RequestParam(required = false) String nomeUsuario,
+            @RequestParam(required = false) String telefoneUsuario,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataAgendada,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim
+    ) {
+        List<AgendamentoResponseDTO> agendamentosDTO = service.listarComFiltros(
+                        nomeUsuario, telefoneUsuario, dataAgendada, dataInicio, dataFim
+                ).stream()
+                .map(mapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
+
 
     // Buscar agendamento por ID com dados completos
     // @GetMapping("/{id}") → URL com parâmetro de caminho (ex: /agendamentos/5).

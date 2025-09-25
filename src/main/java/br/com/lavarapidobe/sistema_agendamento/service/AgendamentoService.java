@@ -4,6 +4,7 @@ import br.com.lavarapidobe.sistema_agendamento.model.Agendamento;
 import br.com.lavarapidobe.sistema_agendamento.repository.AgendamentoRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,20 @@ public class  AgendamentoService {
     // O metodo findAll() já vem pronto do JpaRepository.
 	// Ele executa um SELECT * FROM agendamentos no banco.
     public List<Agendamento> listar() {
+        // Implemente aqui a lógica para combinar os filtros usando o repository
+        // Exemplo: chamar métodos do repository conforme os parâmetros não nulos
+        return repository.findAll();
+    }
+
+    // Metodo com filtros (mantenha se necessário)
+    public List<Agendamento> listarComFiltros(
+            String nomeUsuario,
+            String telefoneUsuario,
+            LocalDate dataAgendada,
+            LocalDate dataInicio,
+            LocalDate dataFim
+    ) {
+        // Implementar lógica de filtros aqui
         return repository.findAll();
     }
 
